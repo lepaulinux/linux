@@ -1,0 +1,32 @@
+Adding and Removing Groups
+
+Adding a new group is done with groupadd:
+
+$ sudo /usr/sbin/groupadd anewgroup
+
+The group can be removed with:
+
+$ sudo /usr/sbin/groupdel anewgroup
+
+Adding a user to an already existing group is done with usermod. For example, you would first look at what groups the user already belongs to:
+
+$ groups rjsquirrel
+bjmoose : rjsquirrel
+
+and then add the new group:
+
+$ sudo /usr/sbin/usermod -a -G anewgroup rjsquirrel
+
+$ groups rjsquirrel
+rjsquirrel: rjsquirrel anewgroup
+
+These utilities update /etc/group as necessary. Make sure to use the -a option, for append, so as to avoid removing already existing groups. groupmod can be used to change group properties, such as the Group ID (gid) with the -g option or its name with then -n option.
+
+Removing a user from the group is somewhat trickier. The -G option to usermod must give a complete list of groups. Thus, if you do:
+
+$ sudo /usr/sbin/usermod -G rjsquirrel rjsquirrel
+
+$ groups rjsquirrel
+rjsquirrel : rjsquirrel
+
+only the rjsquirrel group will be left.

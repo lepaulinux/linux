@@ -1,0 +1,14 @@
+Criar uma particao
+
+cfdisk -> dos
+
+
+Formatar a particao
+
+mkfs.ext4 -L <label_name> /dev/sd*
+
+mkdir /mnt/<nome_folder>
+
+mount /dev/sd* /mnt/<nome_folder>
+
+
