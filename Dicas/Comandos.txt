@@ -1,0 +1,208 @@
+Open the file manager and open the folder you want then press CRTL + L to see the address for the location.
+
+CRTL +1 e CRTL +2 muda o modo de visualizacao no file explorer
+CRTL + H mostra os arquivos ocultos
+
+Local fisico dos arquivos na lixeira
+.local/share/Trash/files
+
+Find the latest modified file in /var/log
+
+ALT+F2 permite que voce execute comandos, exemplos gnome-terminal isso fara com que terminal seja aberto
+---------
+ln -s -> comando cria simbolic link
+ln -s arquivo nome_link
+
+ln -> cria hard link
+
+ln arquivo nome_link
+---------
+List (using ls) five letter named files starting with g and not having the second character between a-m.
+ls g[a-n]???
+---------
+locate utilizes a database created by a related utility, updatedb. Most Linux systems run this automatically once a day. However, you can update it at any time by just running updatedb from the command line as the root user.
+---------
+To find and remove all files that end with .swp: 
+$ find -name "*.swp" -exec rm {} ’;’
+
+-----------------------
+Procurar por arquivo chamado gcc na pasta /usr
+find /usr -type f -name gcc
+
+Procurar por diretorio chamado gcc na pasta /usr
+find /usr -type d -name gcc
+-----------------------
+Open manual de forma grafica
+GNOME: gnome-help or yelp
+
+KDE: khelpcenter
+-----------------------
+pstree command displays the processes running on the system in form of a tree diagram showing the relationship beteen a process and its parent
+
+-----------------------
+Verificar a versao linux instalada:
+cat /etc/os-release
+sb_release -d
+sb_release -a
+
+-----------------------
+Para ver a portas abertas (listening) - ports
+netstat -tulpn
+
+-----------------------
+dd if=/tmp/group of=/tmp/GROUP
+if=FILE = read from FILE instead of stdin
+of=FILE = write to FILE instead of stdout
+
+-----------------------
+tail -f somefile.log 
+
+This command will continuously display any new lines of output in atmtrans.log as soon as they appear. Thus, it enables you to monitor any current activity that is being reported and record
+
+-----------------------
+cut
+
+cut is used for manipulating column-based files and is designed to extract specific columns. The default column separator is the tab character. A different delimiter can be given as a command option.
+
+For example, to display the third column delimited by a blank space, at the command prompt type ls -l | cut -d" " -f3 and press the Enter key.
+
+-----------------------
+nmcli (command line interface) utility
+
+-----------------------
+The ip Utility
+
+To view the IP address:
+
+$ /sbin/ip addr show
+
+To view the routing information:
+
+$ /sbin/ip route show
+
+ip is a very powerful program that can do many things. Older (and more specific) utilities such as ifconfig and route are often used to accomplish similar tasks. A look at the relevant man pages can tell you much more about these utilities.
+
+-----------------------
+scp <localfile> <user@remotesystem>:/home/user
+
+-----------------------
+Printer services
+Assuming CUPS has been installed you'll need to start and manage the CUPS daemon so that CUPS is ready for configuring a printer. Managing the CUPS daemon is simple; all management features can be done with the systemctl utility:
+
+$ systemctl status cups
+
+$ sudo systemctl [enable|disable] cups
+
+$ sudo systemctl [start|stop|restart] cups
+-----------------------
+Calls to sudo trigger a lookup in the /etc/sudoers file, or in the /etc/sudoers.d directory, which first validates that the calling user is allowed to use sudo and that it is being used within permitted scope.
+
+One of the most powerful features of sudo is its ability to log unsuccessful attempts at gaining root access. By default, sudo commands and failures are logged in /var/log/auth.log under the Debian family and /var/log/messages in other distribution families.
+
+-----------------------
+Fedora commands
+sudo dnf install nano
+sudo dnf info nano
+sudo dnf search nano
+sudo dnf update
+dnf grouplist
+dnf groupinstall "name_here"
+dnf groupinfo "name_here"
+dnf groupupdate "name_here"
+dnf groupremove "name_here"
+
+-----------------------
+systemctl status firewalld.service
+verifica o status do firewall
+
+-----------------------
+journalctl - mostra o log no Fedora system
+journalct | grep crond
+
+cd /var/log - outro lugar para achar logs
+
+-----------------------
+Check Compatibility:
+$ grep -o 'vmx\|svm' /proc/cpuinfo
+Note: if nothing comes back check BIOS to make sure Virtualization. 
+
+-----------------------
+Hierarchy file system 
+man 7 hier
+
+-----------------------
+Visualizr user logged in the terminal
+w -h
+
+Para verificar apenas o usuario definido
+w -h -u <user_name>
+
+Listar todos processos sendo executados por um usuario
+pgrep -l -u <user>
+
+Visualizar a arvore de processos
+pstree -p <user>
+-----------------------
+Visualizar data
+[student@desktopX ~]$ date
+Sat Apr  5 08:13:50 PDT 2014
+[student@desktopX ~]$ date +%R
+08:13
+[student@desktopX ~]$ date +%x
+04/05/2014
+
+-----------------------
+Comando para exibir o modelo do CPU
+grep "model name" /proc/cpuinfo
+
+Comando para contar os core do porcessador
+grep "model name" /proc/cpuinfo | wc -l
+
+Outro commando para ver informacoes da CPU
+lscpu
+lscpu | grep "CPU"
+
+-----------------------
+top, uptime, w, and gnome-system-monitor display load average values. 
+
+Process state (S) displays as:
+
+    D = Uninterruptable Sleeping
+
+    R = Running or Runnable
+
+    S = Sleeping
+
+    T = Stopped or Traced
+
+    Z = Zombie
+
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
