@@ -22,8 +22,9 @@ source .bashrc
 
 # acesse o diretorio .config
 cd ~/.config/
+
 # baixa o arquivo starship.toml
-wget <adicionar-endereco-aqui>
+wget "https://raw.githubusercontent.com/lepaulinux/linux/refs/heads/master/starship/starship.toml"
 
 # Verifique a version e o shel que esta sendo utlizado
 starship --version
