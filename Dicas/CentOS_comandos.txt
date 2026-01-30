@@ -1,0 +1,275 @@
+Definir o hostname
+sudo hostnamectl set-hostname rhhost1.localnet.com
+
+nmcli d -> comando para ver network status
+
+nmtui -> para entrar no network manager (set connection to automatic)
+
+service network restart
+
+yum install wget
+
+yum search zip
+
+yum isntall zip unzip
+
+yum check-update -> verifica pacotes que foram atualizados
+
+sudo yum update -> atualiza o sistema
+
+yum remove zip - remove aplicativo chamado zip
+
+yum grouplist -> mostra os grupos disponiveis para instalacao
+
+yum groupinfo "Basic Web Services" -> para saber mas a respeito de um pacote
+
+yum group remove <pacote nome>
+
+yum group install <pacote name>
+
+** Access Control Mechanisms ****
+Standard Linux: Discretionary Access Control (DAC)
+Users, groups, Permissions
+
+SELinux: Mandatory Access Control (MAC)
+labels resources for more granular access control
+separate system from DAC
+
+SELinux Access Control
+Tye Enforcement (TE)
+Role-Based Access Control (RBAC)
+Multi-Level Security (MLS)
+
+
+sestatus - verifica policy status
+setenforce 0 - desabilita
+setenforce 1 - habilita 
+
+para vi /etc/sysconfig/selinux -> para fazer a mudanca permanente
+change the SELinux= Disabled
+Enforcing is the same as enabled
+
+------------------------------
+Para logar em mode de emergencia
+
+1. During bootup, when the GRUB2 menu shows up, press the e key for edit.
+2. Add the following parameter at the end of the linux16 line:
+systemd.unit=rescue.target
+Press Ctrl+a (or Home) and Ctrl+e (or End) to jump to the start and end of the line.
+3. Press Ctrl+x to boot the system with the parameter.
+------------------------------
+sudo yum list installed kernel-*
+command to show hte kernel available
+
+ls -l /boot
+
+uname -r
+
+ls l- /boot/grub2
+
+cat /etc/default/grub
+para mudar boot settings
+
+para confirmar mudanca execute o commando
+sudo grub2-mkconfig /etc/default/grub
+
+sudo yum list available kernel
+verifica se tem update for de kernel (azul color)
+
+sudo yum remove kernel
+remove todos kernel exeto o kernel em uso no momento.
+------------------------------
+
+Modulos
+
+ls /lib/modules/$(uname -r)/kernel
+comando para verificar os modules
+
+lsmod
+para ver modulos loaded
+
+modinfo cdrom 
+para ver info to mod
+
+sudo modprobe -v dm_mirror
+para iniciar o mod
+
+sudo modprobe -vr dm_mirror
+para remover o mod
+
+sudo depmode -v
+exibe o modulos por hardware e model
+-----------------------------
+
+Systemd Network Interface Naming
+Interface type  - Interface name
+Firmware/BIOS supplied - eno1
+PCI Express Slot -  ens1
+PCI Solt - enp3s0
+Invalid Firmware info - eth0
+
+lspci - comando exibi the hardware (perifiricos) no computador
+-----------------------------
+
+Network Settings
+- hostname
+- Static name resolution
+- IP address
+- Default gateway
+- Nameserver
+
+Static Network Config
+/etc/sysconfig/network-scripts/ifcfg-eth0
+local para definir IP estatico
+
+- hostname
+sudo hostnamectl set-hostname rhhost1.localnet.com
+name = rhhost1.localnet.com
+
+- host configuration
+/etc/hosts
+
+example:
+192.168.1.100   rhhost1.localnet.com rhhost1
+192.168.1.200   rhhost2.localnet.com rhhost2
+
+Interface Administration Commands
+- ifup/ifdown
+- ip
+- nm-cli
+- nm-tui
+- nm-connection-editor
+
+Nameserver Configuration
+/etc/resolv.conf
+
+example:
+OpenDNS 208.67.222.222
+OpenDNS 208.67.220.220
+
+------------------------------
+Network Interface Configuration Files
+
+/etc/sysconfig/network-scripts/ifcfg-name
+/etc/sysconfig/network-scripts/ifcfg-enp0s3
+
+
+DHCP Configuration File
+- device=enp0s3
+- BOOTPROTO=dhcp
+- ONBOOT=yes
+
+Static Configuration File
+- DEVICE=enps03
+- BOOTPRO=none
+- ONBOOT=yes
+- PREFIX=24
+- IPADDR=10.0.1.27
+
+General Configurational Options
+- DEVICE=name
+- IPADDR=address
+- IPV6ADDR=address
+- HWADDR=MAC-address
+- MACADDR=MAC-address
+- BOOTPRO=protocol(nome, bootp, dhcp)
+- ONBOOT=answer(yes,no)
+- IPV6INIT=answer(yes,no)
+- PEERDNS=answer(yes,no)
+- DNS{1,2}=address
+
+Netmask Configuration Options
+- PREFIX=CIDR bits
+- NETMASK=mask in dotted notation
+
+Control Configuration Options
+- NM_CONTROLLED=answer(yes,no)
+- USERCTL=answer(yes,no)
+
+After Configuration File Changes
+nmcli c reload
+
+sudo yum install NetowrkManager-tui
+para install NMTUI network interface software
+
+man nmcli-examples
+
+Bring the interface UP/Down
+sudo nmcli dev disconnect enp0s3
+sudo mncli con up enp0s3
+
+Mostrar as connections ativas
+nmcli con show
+
+nmcli general status
+
+Comando para editar qualquer tipo de configuracao
+nmcli con edit
+
+yum help
+yum search all 'web server'
+yum install PACKAGENAME
+yum update PACKAGENAME
+
+Yum provides /var/www/html
+yum repolist
+yum list installed
+yum grouplist
+sudo yum update
+
+yum group install "Development Tools"
+yum group info "Development Tools"
+
+Comando mostra o historico do comando
+sudo yum history
+
+Comando vai desfazer a transaction seleciona, nesse caso 4
+sudo yum history undo <4>
+
+Marker 	Meaning
+= 	Package is installed, was installed as part of the group
++ 	Package isn't installed, will be if the group is installed or updated
+- 	Package isn't installed, will not be if the group is installed or updated
+no marker 	Package is installed, but was not installed through the group.
+
+
+
+Packages can be located, installed, updated, and removed by name or by package groups.
+Task: 	Command:
+List installed and available packages by name 	                    yum list [NAME-PATTERN]
+List installed and available groups 	                            yum grouplist
+Search for a package by keyword 	                                yum search KEYWORD
+Show details of a package 	                                        yum info PACKAGENAME
+Install a package 	                                                yum install PACKAGENAME
+Install a package group 	                                        yum groupinstall "GROUPNAME"
+Update all packages 	                                            yum update
+Remove a package 	                                                yum remove PACKAGENAME
+Display transaction history 	                                    yum history
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

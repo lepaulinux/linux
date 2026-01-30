@@ -1,0 +1,71 @@
+
+1 - Symbolic Method Keywords 
+
+chmod WhoWhatWhich file|directory
+
+- Who is u, g, o, a (for user, group, other, all)
+
+- What is +, -, = (for add, remove, set exactly)
+
+- Which is r, w, x (for read, write, execute)
+
+ The symbolic method of changing file permissions uses letters to represent the different groups of permissions: u for user, g for group, o for other, and a for all.
+
+With the symbolic method, it is not necessary to set a complete new group of permissions. Instead, it is possible to change one or more of the existing permissions. In order to accomplish this, use three symbols: + to add permissions to a set, - to remove permissions from a set, and = to replace the entire set for a group of permissions.
+
+The permissions themselves are represented by a single letter: r for read, w for write, and x for execute. When using chmod to change permissions with the symbolic method, using a capital X as the permission flag will add execute permission only if the file is a directory or already has execute set for user, group, or other. 
+
+*****************************************************************************************************************
+
+2 - Numeric Method
+
+chmod ### file|directory
+
+- Each digit represents an access level: user, group, other.
+
+# is sum of r=4, w=2, and x=1.
+
+Using the numeric method, permissions are represented by a three-digit (or four, when setting advanced permissions) octal number. A single octal digit can represent the numbers 0-7, exactly the number of possibilities for a three-bit number.
+
+To convert between symbolic and numeric representation of permissions, we need to know how the mapping is done. In the three-digit octal (numeric) representation, each digit stands for one group of permissions, from left to right: user, group, and other. In each of these groups, start with 0. If the read permission is present, add 4. Add 2 if write is present, and 1 for execute.
+
+Numeric permissions are often used by advanced administrators since they are shorter to type and pronounce, while still giving full control over all permissions.
+
+Examine the permissions -rwxr-x---. For the user, rwx is calculated as 4+2+1=7. For the group, r-x is calculated as 4+0+1=5, and for other users, --- is represented with 0. Putting these three together, the numeric representation of those permissions is 750.
+
+This calculation can also be performed in the opposite direction. Look at the permissions 640. For the user permissions, 6 represents read (4) and write (2), which displays as rw-. For the group part, 4 only includes read (4) and displays as r--. The 0 for other provides no permissions (---) and the final set of symbolic permissions for this file is -rw-r----
+
+ 
+Examples:
+
+- Remove read and write permission for group and other on file1:
+
+chmod go-rw file1
+
+- Add execute permission for everyone on file2:
+
+chmod a+x file2
+
+- Set read, write, and execute permission for user, read, and execute for group, and no permission for other on sampledir:
+
+chmod 750 sampledir
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    [student@desktopX ~]$ chmod 750 sampledir

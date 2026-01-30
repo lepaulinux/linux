@@ -1,0 +1,35 @@
+ 1 -sudo snap isntall nextcloud
+
+ip a
+
+2 - Open the browser digitando o ip do servidor para criar o usario e para terminar a instalacao
+
+
+sudo mkdir /mnt/cloud
+
+sudo mount /dev/sdb1 /mnt/cloud
+
+3 - Mude para usuario root
+cp -a /var/snap/nextcloud/common/nextcloud/data/. /mnt/cloud/data
+
+4 - /var/snap/nextcloud/{user_numero}/nextcloud/config/config.php
+
+sudo /etc/fstab
+adicione a linha abaixo:
+/dev/sdb1 /mnt/cloud  ext4  defaults  0  0 
+
+5 - snap disable nextcloud
+
+snap enable nextcloud
+
+snap connect nextcloud:removable-media
+
+6 - sudo nextcloud.enable-https lets-encrypt
+
+------------------------------------
+
+https://www.youtube.com/watch?v=g1mYxrxdJXM
+
+
+
+
