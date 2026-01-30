@@ -1,0 +1,28 @@
+https://flathub.org/
+
+flatpak remotes
+
+flatpak remote-add {give_a_name} https://dl.flathub.org/repo/flathub.flatpakrepo
+ex:
+flatpak remote-add repositorio https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote -ls {repositorio}
+
+comandos:
+flatpak update
+flatpak remove uninstall {app_name}
+flatpak install {app_name}
+flatpak search vlc
+
+flatpak remote-info flathub {application_name}
+Ex:
+flatpak remote-info flathub org.videolan.org
+
+flatpak install org.videolan.VLC
+
+flatpak list
+flatpak list --app
+
+flatpak run org.videolan.VLC
+
+flatpak --help
+

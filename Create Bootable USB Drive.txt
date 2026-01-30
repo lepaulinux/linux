@@ -1,0 +1,9 @@
+Create Bootable USB Drive Using dd Command On Linux
+
+umount /dev/sdb*
+
+sudo fdisk –l
+
+mkfs.vfat /dev/sdb –I
+
+dd if=~/home/Buvanesh/iso/Ubuntu32.iso of=/dev/sdb

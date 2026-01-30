@@ -1,0 +1,71 @@
+sudo apt-get install ecryptfs-utils
+
+Encrypt The Home Folder
+
+During this encryption process, we’ll be making a temporary user. This user isn’t going to be permanent. At the end of this tutorial, we’ll completely delete it. Creating a temporary super-user account is important because it’s not possible to encrypt a user directory while logged in.
+Create New User
+
+To create a new user, open up a terminal, log into the root account.
+
+sudo -s
+
+Now that the shell is root, use useradd to make the temporary account. Be sure to add the -M to ensure the system doesn’t create a new home directory.
+
+useradd -M encrypt-admin
+
+Useradd will create a new user, but it doesn’t have a password. Using passwd, assign encrypt-admin a new UNIX password.
+
+passwd encrypt-admin
+
+Encrypt-admin is ready to use, but will not be able to access and execute root commands. To allow the user to run root commands, we’ll need to add it to the sudoers file. Using visudo, edit the sudo config file.
+
+EDITOR=nano visudo
+
+Inside the Nano text editor, scroll down and look for “# User privilege specification“. Under this, you should see “root ALL=(ALL:ALL) ALL“. Press enter on the keyboard under this line and write out the following in Nano.
+
+encrypt-admin ALL=(ALL:ALL) ALL
+
+Save the visudo file by pressing Ctrl + O, then close with Ctrl + X.
+Start Encryption
+
+To start the encryption process, log out of the username you plan to start the encryption on. On the login screen, press Alt + Ctrl + F1. If this button combo doesn’t work, try F2 through F6. 
+
+Using the TTY prompt, write encrypt-admin in the login prompt, followed by the password set earlier. Then, use EncryptFS to start the encryption.
+
+Note: change “yourusername” to the name of the user account you just logged out of. To encrypt multiple user accounts, run this command multiple times.
+
+sudo ecryptfs-migrate-home –u yourusername
+
+The above command will migrate your user to an encrypted home folder.  From here, it’s safe to log out of the temporary administrator account, and back into the regular user. Log out of the TTY console with:
+
+exit
+
+Writing out the exit command should instantly return to the login screen from before. From there, press Alt + F2 – F7 to return to graphical mode.
+Remove User Account
+
+EcryptFS is fully configured on Linux, so it’s time to get rid of the encrypt-admin account. Start off by removing it from the sudoers file. Open up a terminal and modify visudo.
+
+sudo -s
+
+EDITOR=nano visudo
+
+Scroll down the sudoers file, and remove the code added earlier on in the guide.
+
+encrypt-admin ALL=(ALL:ALL) ALL
+
+Save the sudoer file edit in Nano by pressing Ctrl + O on the keyboard. Exit Nano and return to the terminal shell with Ctrl + X.
+
+Encrypt-admin no longer has any ability to gain root access or modify the system in any way. At this point, it’s harmless, and it’s possible to just leave it there. Still, if you’re not interested in having multiple users on your Linux PC, it may be a good idea to delete it altogether. In the terminal, use the userdel command to get rid of it.
+
+sudo userdel encrypt-admin
+
+Add Encryption Password
+
+EcryptFS is almost ready to go. All that’s left is to set up a new password. Open up a terminal (without using sudo or root) and enter add a new passphrase. Please keep in mind that encryption is pointless without a secure password. Head over to strongpasswordgenerator.com and create a strong encryption passphrase.
+
+Note: don’t want to use the generator to create a new passcode? Check out this article to learn how to create your own secure passphrase instead.
+
+ecryptfs-add-passphrase
+
+When “ecryptfs-add-passphrase” finishes, your home folder should be fully encrypted. To start using it, restart your Linux PC. Upon restart, EcryptFS will require your new passphrase to log in correctly.
+
