@@ -1,55 +1,110 @@
+# Versao 2.0
+# Creador: Leandro
 
-Commands:
-1.1 sudo apt update
-1.2 sudo apt install nginx -y
-1.3 systemctl start nginx
-systemctl enable nginx
-1.4 netstat -plntu
-curl -I localhost
+########################################
+# 1. NGINX
+########################################
+sudo apt update
+sudo apt install nginx -y
+sudo systemctl start nginx
+sudo systemctl enable nginx
 
-2.1 sudo apt install software-properties-common -y
+ss -plntu
+curl -I http://localhost
+
+
+########################################
+# 2. PHP 7.1 (OBSOLETO – apenas estudo)
+########################################
+sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:ondrej/php -y
-2.2 sudo apt install php7.1-fpm php7.1-mcrypt php7.1-curl php7.1-cli php7.1-mysql php7.1-gd php7.1-iconv php7.1-xsl php7.1-json php7.1-intl php-pear php-imagick php7.1-dev php7.1-common php7.1-mbstring php7.1-zip php7.1-soap -y
-2.3 cd /etc/php/7.1/
-nano fpm/php.ini
-nano cli/php.ini
-2.4 nano fpm/pool.d/www.conf
-2.5 systemctl restart php7.1-fpm
-systemctl enable php7.1-fpm
-2.6 netstat -pl | grep php
+sudo apt update
 
-3.1 sudo apt install mysql-server mysql-client -y
-3.2 systemctl start mysql
-systemctl enable mysql
-3.3 mysql_secure_installation
-3.4 mysql -u root -p
-create database nextcloud_db;
-create user nextclouduser@localhost identified by 'Nextclouduser421@';
-grant all privileges on nextcloud_db.* to nextclouduser@localhost identified by 'Nextclouduser421@';
-flush privileges;
+sudo apt install php7.1-fpm php7.1-cli php7.1-curl php7.1-mysql \
+php7.1-gd php7.1-xsl php7.1-json php7.1-intl php-pear php-imagick \
+php7.1-dev php7.1-common php7.1-mbstring php7.1-zip php7.1-soap -y
 
-4.1 sudo apt install letsencrypt -y
-4.2 systemctl stop nginx
-4.3 certbot certonly --standalone -d example.tab.digital
+# Configurações PHP
+sudo nano /etc/php/7.1/fpm/php.ini
+sudo nano /etc/php/7.1/cli/php.ini
 
-5.1 sudo apt install wget unzip zip -y
-5.2 cd /var/www/
-wget https://download.nextcloud.com/server...
-5.3 unzip latest.zip
-mkdir -p nextcloud/data/
-5.4 chown -R www-data:www-data /var/www/nextcloud/
+# Recomendações dentro do php.ini:
+# memory_limit = 512M
+# upload_max_filesize = 2G
+# post_max_size = 2G
+# date.timezone = Europe/Madrid
 
-6.1 cd /etc/nginx/sites-available/
-nano nextcloud
-6.2 https://pastebin.com/eRam15UN
-6.3 ln -s /etc/nginx/sites-available/nextcloud /etc/nginx/sites-enabled/
-nginx -t
-6.4 systemctl restart nginx
-systemctl restart php7.1-fpm
+sudo nano /etc/php/7.1/fpm/pool.d/www.conf
+# Confirmar:
+# user = www-data
+# group = www-data
+# listen = /run/php/php7.1-fpm.sock
 
-7.1 ufw enable
-7.2 ufw allow ssh
-ufw allow http
-ufw allow https
-7.3 ufw status
+sudo systemctl restart php7.1-fpm
+sudo systemctl enable php7.1-fpm
 
+ss -pl | grep php
+
+
+########################################
+# 3. MYSQL
+########################################
+sudo apt install mysql-server mysql-client -y
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+sudo mysql_secure_installation
+
+mysql -u root -p <<EOF
+CREATE DATABASE nextcloud_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'nextclouduser'@'localhost' IDENTIFIED BY 'Nextclouduser421@';
+GRANT ALL PRIVILEGES ON nextcloud_db.* TO 'nextclouduser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+EOF
+
+
+########################################
+# 4. LET'S ENCRYPT (CERTBOT)
+########################################
+sudo apt install certbot python3-certbot-nginx -y
+sudo certbot --nginx -d example.tab.digital
+
+
+########################################
+# 5. NEXTCLOUD
+########################################
+sudo apt install wget unzip zip -y
+cd /var/www
+
+sudo wget https://download.nextcloud.com/server/releases/latest.zip
+sudo unzip latest.zip
+
+sudo mkdir -p /var/www/nextcloud/data
+sudo chown -R www-data:www-data /var/www/nextcloud
+sudo chmod -R 750 /var/www/nextcloud
+
+
+########################################
+# 6. NGINX – NEXTCLOUD
+########################################
+cd /etc/nginx/sites-available
+sudo nano nextcloud
+# (colar config do pastebin e confirmar:
+# fastcgi_pass unix:/run/php/php7.1-fpm.sock;)
+
+sudo ln -s /etc/nginx/sites-available/nextcloud /etc/nginx/sites-enabled/
+sudo nginx -t
+
+sudo systemctl restart nginx
+sudo systemctl restart php7.1-fpm
+
+
+########################################
+# 7. FIREWALL
+########################################
+sudo ufw allow OpenSSH
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw enable
+sudo ufw status
