@@ -6,7 +6,7 @@ This community was created for people who want to go beyond memorizing commands 
 
 # Whether you're preparing for:
 
-# RHCSA
+RHCSA
 Linux administration jobs
 Home labs and servers
 DevOps & cybersecurity paths
@@ -45,12 +45,12 @@ Leveling up your sysadmin skills
 
 Learn together. Practice together. Grow together.
 
-📺 YouTube Channel
+# 📺 YouTube Channel
 
 Subscribe and follow the journey:
 RedHood-Linux
 
-🔥 Keep Building
+# 🔥 Keep Building
 
 Every command learned is another step forward.
 
