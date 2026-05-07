@@ -1,19 +1,19 @@
-🐧 Welcome to RedHood-Linux
+# 🐧 Welcome to RedHood-Linux
 
 Master Linux. Build real skills. Earn your Red Hat certification.
 
 This community was created for people who want to go beyond memorizing commands and truly understand how Linux works in real-world environments.
 
-Whether you're preparing for:
+# Whether you're preparing for:
 
-RHCSA
+# RHCSA
 Linux administration jobs
 Home labs and servers
 DevOps & cybersecurity paths
 
 …you’re in the right place.
 
-🚀 What You'll Find Here
+# 🚀 What You'll Find Here
 Step-by-step Linux tutorials
 RHCSA / RHCE exam practice
 Troubleshooting labs
@@ -21,9 +21,9 @@ Shell scripting
 System administration tips
 SELinux, networking, storage, users, permissions, and more
 
-New videos are released regularly to help you stay consistent and keep progressing toward certification success.
+New videos are released weakly to help you stay consistent and keep progressing toward certification success.
 
-💡 Learn by Doing
+# 💡 Learn by Doing
 
 This channel focuses on hands-on learning.
 No fluff. No copy-paste studying.
@@ -32,7 +32,7 @@ The goal is simple:
 
 Understand the system, practice the commands, and become confident using Linux in real environments.
 
-🤝 Join the Community
+# 🤝 Join the Community
 
 No matter if you're:
 
