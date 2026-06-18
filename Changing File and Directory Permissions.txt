@@ -50,6 +50,17 @@ chmod a+x file2
 
 chmod 750 sampledir
 
+The table below gives numbers for all for permissions types.
+0	    No Permission	                 ---
+1	    Execute	                       --x
+2    	Write	                         -w-
+3	    Execute + Write	               -wx
+4	    Read	                          r--
+5	    Read + Execute	                r-x
+6	    Read + Write	                  rw-
+7	    Read + Write + Execute	        rwx
+
+
 
 
 
